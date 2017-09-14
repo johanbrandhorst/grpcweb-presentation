@@ -1,0 +1,102 @@
+gRPC-Web with GopherJS
+19 Sep 2017
+
+Johan Brandhorst
+Software Engineer, InfoSum
+johan.brandhorst@gmail.com
+@johanbrandhorst
+https://jbrandhorst.com
+
+: I'm Johan, InfoSum
+: Go for 1.5 years, loving it.
+: Convinced to talk here today by Paul (point), my first technical talk, hope to catch your interest and imagination
+
+* Synopsis
+
+- What
+- Why
+- How
+- Demo
+
+: Lets start with a quick overview, talk about what, why, how and then show a demo at the end
+: (Pause)
+
+* What
+
+- GopherJS
+- gRPC-Web
+
+: We'll take a quick look at these technologies that form the base of my work
+
+* GopherJS
+
+.image gopherjs.png
+
+: Show of hands, who attended Pauls GopherJS talk GolangUK?
+: You'll already have seen some of what I'm about to show today
+: Go to JS Transpiler, unlocking the magic of Go in the frontend
+
+* gRPC-Web
+
+- Privately being developed by gRPC team
+- Third party client introduced by Improbable [[https://improbable.io/games/blog/grpc-web-moving-past-restjson-towards-type-safe-web-apis][in April]] ([[https://github.com/improbable-eng/grpc-web][repo]])
+- Built on [[https://github.com/google/protobuf/tree/master/js][Google ProtobufJS]]
+- Fully compliant with [[https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md][the official grpc-web spec]]
+- Payloads are binary encoded proto messages
+
+Caveat: does _not_ support client-side streaming
+
+: By now well established in the backend, the browser client implementation of gRPC has been
+: under development in private google repo for over a year. Original plans was to release Q1 2017.
+: Improbable introduced third party spec-compliant implementation, written in TypeScript.
+: Having worked with both, the Improbable one is more feature complete.
+: Personal theory is that google has dropped development on grpc-web until support for client
+: streams land with the finalising of the Fetch/Streams API.
+: Neither implementation supports client side streaming, but we'll see that it can be worked around
+
+* Why
+
+- Whats wrong with JSON/REST?
+
+* The Status quo
+
+.image status_quo.svg
+
+- JSON Payloads
+- Custom marshaling code both ends
+- HTTP 1.1
+
+: This is the de facto standard way of working with the backend today. There are a couple of problems here.
+: Firstly, using JSON as the payload between the server and the client introduces unnecessary overhead, both in terms
+: of marshalling and unmarshalling, and in terms of payload size. In highly optimised environments, JSON marshalling and unmarshalling can become a bottleneck.
+: Secondly, it doesn't formalise the contract between the backend and frontend, meaning frontend engineers and backend engineers need to ensure they are always keeping
+: each other up-to-date with the latest changes to the interface. This causes friction, which slows down development.
+: Thirdly, there's no easy way of supporting streams here. Can be worked around with websockets,
+: but previous caveats still apply.
+
+* There must be a better way!
+
+.image raymond.jpg
+
+(With apologies to Rob Pike)
+
+: THERE MUST BE A BETTER WAY (bang fist on table) (Raymond Hettinger)
+: This is Raymond Hettinger, and although he's a Python guru, I like to remember this quote whenever
+: I see something that seems silly. This applies very well to Go in my experience as well.
+
+* A better way
+
+.image better_way.svg
+
+- Binary Payloads
+- Generated marshalling code
+- HTTP 2
+
+: gRPC-web
+
+* Thanks
+
+- [[https://improbable.io][Improbable]] for their amazing gRPC-Web library (special shoutout to [[https://twitter.com/mwitkow][@mwitkow]] for his amazing gRPC community contributions)
+- [[https://github.com/neelance][Richard Musiol]], [[https://github.com/shurcooL][Dmitry Shuralyov]] and others in the GopherJS community
+- [[https://twitter.com/_myitcv][Paul Jolly]] for his excellent work on GopherJS and the React bindings
+
