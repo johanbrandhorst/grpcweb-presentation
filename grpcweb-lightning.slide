@@ -12,14 +12,21 @@ https://jbrandhorst.com
 : and I run my own Go blog, writing mostly about things related to my open source projects and gRPC.
 : I'm here today to talk about my open source GopherJS gRPC-Web Bindings.
 
-* Introduction
+* Raison d'être
 
-- GopherJS
-- gRPC-Web
-- Websockets
+Allows you to write browser based Go apps, connecting to gRPC backends.
+
+Supports unary, server-side, client side and bidirectional streaming endpoints.
+
+* Overview
 
 .image better_way.svg
 
+* Building blocks
+
+- GopherJS
+- Improbable's gRPC-Web Client
+- Websockets
 
 : These are the 3 major technologies I built my library on.
 : I first heard of gRPC-Web about the same time as I was first playing around with GopherJS, and I thought they'd
@@ -41,14 +48,17 @@ https://jbrandhorst.com
 - Supports Client-side streaming via Websocket proxy
 
 : My GopherJS gRPC-Web bindings allow the user to write a normal gRPC server backend and consume it from a GopherJS app
-: in the frontend. All streaming modes are supported, even client side and bidirectional streaming, which is not supported
+: in the frontend. The generated files have no dependency on separately generated JS files, unlike the Improbable TS generator.
+: All streaming modes are supported, even client side and bidirectional streaming, which is not supported
 : by the Improbable gRPC-Web client. This is in addition to the official gRPC-Web spec which does not define any support
 : for client side or bidirectional streaming at this time.
-: Lets show how we can use it.
+: I'm gonna give a quick rundown at how to use the generator before we see a demo.
 
-* Define the interface and generate the code
+* Define the interface
 
 .code book_service.proto /START OMIT/,/END OMIT/
+
+* Generate the code
 
 Get the plugin:
 
@@ -64,7 +74,7 @@ Generate with protoc:
 : This generation leaves us with the package "library" which provides the interface our frontend code can use.
 : Of course, the same protofile should be used to generate the backend interface.
 
-* Import generated packages
+* Creating the frontend client
 
 .code generated.go
 
@@ -74,15 +84,15 @@ Generate with protoc:
 : Note that all the methods are blocking, and since we're working with Go that gets compiled to Javascript,
 : it means we have to wrap all our calls in goroutines. It's one of the quirks of GopherJS.
 : I'm not going to show too much of the client code here because it can be implemented in many different ways.
+: Lets get to the demo page!
 
-* Demo
+* 
 
-Visit https://grpcweb.jbrandhorst.com to join the chat!
-.iframe https://grpcweb.jbrandhorst.com/ 500 975
+.iframe https://grpcweb.jbrandhorst.com/ 600 975
 
 * Conclusion
 
-gRPC-Web makes the frontend a first class citizen of the gRPC ecosystem.
+gRPC-Web makes the browser a first class citizen of the gRPC ecosystem.
 
 .image grpc_with_web.svg 500 975
 
@@ -92,17 +102,18 @@ gRPC-Web makes the frontend a first class citizen of the gRPC ecosystem.
 * Questions?
 
 .image gopher.png _ 400
-Credit: [[http://reneefrench.blogspot.co.uk/2014/08/blog-post_4.html][Renee French]]
 
-* Links and Thanks
+.caption _Gopher_ by [[http://reneefrench.blogspot.co.uk/2014/08/blog-post_4.html][Renée French]]
 
-- [[https://github.com/johanbrandhorst/protobuf][The GopherJS Protobuf repo]]
-- [[https://github.com/johanbrandhorst/grpcweb-example][The demo website repo]]
-- [[https://github.com/improbable-eng/grpc-web][The Improbable TypeScript gRPC-Web Client]]
-- [[https://github.com/myitcv/react/wiki][Pauls GopherJS React Bindings]]
+* Links
+
+- [[https://github.com/johanbrandhorst/protobuf][GopherJS Protobuf repo]]
+- [[https://github.com/johanbrandhorst/grpcweb-example][Demo website repo]]
+- [[https://github.com/improbable-eng/grpc-web][Improbable TypeScript gRPC-Web Client]]
+- [[https://github.com/myitcv/react/wiki][Paul Jolly's GopherJS React Bindings]]
 - [[https://jbrandhorst.com/post/gopherjs-grpcweb/][My blog post further detailing the GopherJS gRPC-Web Bindings]]
 
-Thanks
+* Thanks to
 
 - [[https://improbable.io][Improbable]] for their amazing gRPC-Web library (special shoutout to [[https://twitter.com/mwitkow][@mwitkow]] for his amazing gRPC community contributions)
 - [[https://github.com/neelance][Richard Musiol]], [[https://github.com/shurcooL][Dmitry Shuralyov]] and others in the GopherJS community

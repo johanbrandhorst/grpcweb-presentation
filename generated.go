@@ -8,6 +8,7 @@ type BookServiceClient interface {
 type bookServiceClient struct {
 	client *grpcweb.Client
 }
+
 func NewBookServiceClient(hostname string, opts ...grpcweb.DialOption) BookServiceClient {
 	return &bookServiceClient{
 		client: grpcweb.NewClient(hostname, "library.BookService", opts...),
