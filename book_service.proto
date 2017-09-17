@@ -89,12 +89,23 @@ message BookResponse {
 }
 
 // START OMIT
-// BookService exposes GetBook and QueryBooks,
-// which allow querying of the library.
+// BookService exposes methods for querying of the library.
+//
 service BookService {
+
+  // GetBook returns a Book from the library
+  // that matches the ISBN provided, if found.
+  // Otherwise it returns a NotFound error.
   rpc GetBook(GetBookRequest) returns (Book) {}
+
+  // QueryBooks returns all Books whose author
+  // matches the author prefix provided, as a stream of Books.
   rpc QueryBooks(QueryBooksRequest) returns (stream Book) {}
+
+  // MakeCollection takes a stream of books and returns a Book collection.
   rpc MakeCollection(stream Book) returns (Collection) {}
+
+  // BookChat allows discussion about books.
   rpc BookChat(stream BookMessage) returns (stream BookResponse) {}
 }
 // END OMIT

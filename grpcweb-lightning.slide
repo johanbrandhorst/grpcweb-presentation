@@ -1,4 +1,4 @@
-gRPC-Web with GopherJS
+Using gRPC-Web to bridge GopherJS apps to gRPC backends
 19 Sep 2017
 
 Johan Brandhorst
@@ -10,19 +10,26 @@ https://jbrandhorst.com
 : I'm Johan, InfoSum, we're a Big Data startup in Basingstoke.
 : I've been using Go for 1.5 years, loving it. I've contributed to the Go programming language
 : and I run my own Go blog, writing mostly about things related to my open source projects and gRPC.
-: I'm here today to talk about my open source GopherJS gRPC-Web Bindings.
-
-* Features
-
-Allows the creation of browser based Go apps, connecting to gRPC backends.
-
-Supports unary, server-side, client side and bidirectional streaming endpoints.
+: I'm here today to talk about my open source GopherJS gRPC-Web bindings.
 
 * Overview
 
+- GopherJS Bindings for gRPC-Web.
+- Allows the creation of browser based Go apps, connecting to generic gRPC backends.
+- Supports unary, server-side, client side and bidirectional streaming endpoints.
+
+: My library allows users to create GopherJS apps that can effortlessly communicate with
+: any gRPC backend service, without the need for a payload translation layer. It supports
+: all 4 streaming modes normally supported by gRPC. Lets see what that looks like.
+
+* The setup
+
 .image better_way.svg
 
-: This diagram shows an overview of the design enabled.
+: This diagram shows an overview of the network flow of the library, to give you more of
+: an idea of the entire picture. GopherJS apps run in the browser, and with my library, communicating
+: with the backend becomes as easy as writing a Go gRPC client.
+: Lets take a look at the technologies that my library is built on.
 
 * Building blocks
 
@@ -30,7 +37,6 @@ Supports unary, server-side, client side and bidirectional streaming endpoints.
 - Improbable's gRPC-Web Client
 - Websockets
 
-: These are the 3 major technologies I built my library on.
 : I first heard of gRPC-Web about the same time as I was first playing around with GopherJS, and I thought they'd
 : make for an excellent combination in an open source project. GopherJS, for the uninitiated, is a Go to JS Transpiler,
 : unlocking the magic of Go in the frontend and, more importantly, saving us from having to write any JavaScript.
@@ -38,27 +44,33 @@ Supports unary, server-side, client side and bidirectional streaming endpoints.
 : inter-microservice communication. There was an effort from Google to release an official client, scheduled for Q1 2017,
 : but it seems the will to release that has died down for now. Instead, Improbable released their third party
 : spec compliant implementation in April 2017, and this is the version I've built my library on.
-: Websockets are supported by all major browsers and allow bidirectional streaming between the frontend and backend.
+: Websockets are supported by all major browsers and allow bidirectional streaming between the browser and the backend.
 : They are used in my library to support client-side and bidirectional streaming from the browser.
+: Lets dive further into the capabilities.
 
 * GopherJS gRPC-Web and Protobuf bindings
 
-- Combining the benefits of GopherJS with the benefits of gRPC-Web
+- Combines the benefits of GopherJS with the benefits of gRPC-Web
 - [[https://github.com/johanbrandhorst/protobuf]]
 - `protoc-gen-gopherjs` built on top of GopherJS ProtobufJS bindings
 - No dependency on `protoc`-generated JS files
 - Supports Client-side streaming via Websocket proxy
 
 : My GopherJS gRPC-Web bindings allow the user to write a normal gRPC server backend and consume it from a GopherJS app
-: in the frontend. The generated files have no dependency on separately generated JS files, unlike the Improbable TS generator.
+: in the browser. The generated files have no dependency on separately generated JS files, unlike the Improbable TS generator.
 : All streaming modes are supported, even client side and bidirectional streaming, which is not supported
 : by the Improbable gRPC-Web client. This is in addition to the official gRPC-Web spec which does not define any support
 : for client side or bidirectional streaming at this time.
-: I'm gonna give a quick rundown at how to use the generator before we see a demo.
+: Lets look at this in action with a quick example.
 
-* Define the interface
+* A simple book service
 
 .code book_service.proto /START OMIT/,/END OMIT/
+
+: First step is to define the interface between the backend and the browser. We do this with a protofile definition.
+: This abbreviated example shows how to define RPC methods with the 4 different modes: Unary, Server Streaming, Client Streaming and Bidirectionally streaming.
+: The full proto file can be found on my example repo.
+: Now that we've defined the interface we'll need to generate the code.
 
 * Generate the code
 
@@ -70,11 +82,10 @@ Generate with protoc:
 
     protoc --gopherjs_out=plugins=grpc:./client/proto/library/ proto/book_service.proto
 
-: This abbreviated example shows how to define RPC methods with the 4 different modes: Unary, Server Streaming, Client Streaming and Bidirectionally streaming.
-: The full proto file can be found on my example repo.
 : The generation step requires protoc-gen-gopherjs to be installed, which you can get by running go get ...
 : This generation leaves us with the package "library" which provides the interface our frontend code can use.
 : Of course, the same protofile should be used to generate the backend interface.
+: Now that we've generated the files, lets see how they are used in our frontend app.
 
 * Creating the frontend client
 
@@ -86,7 +97,7 @@ Generate with protoc:
 : Note that all the methods are blocking, and since we're working with Go that gets compiled to Javascript,
 : it means we have to wrap all our calls in goroutines. It's one of the quirks of GopherJS.
 : I'm not going to show too much of the client code here because it can be implemented in many different ways.
-: Lets get to the demo page!
+: Lets see it all in action!
 
 * 
 
@@ -94,12 +105,13 @@ Generate with protoc:
 
 * Conclusion
 
-gRPC-Web makes the browser a first class citizen of the gRPC ecosystem.
+gRPC-Web makes the browser a first class citizen of the gRPC ecosystem,
+and my library adds the power of GopherJS for a very compelling developer frontend experience.
 
 .image diff_side.png _ 975
 
 : We've shown that it's possible today to write a frontend client in Go, communicate with a regular
-: Go backend over HTTP2/Websockets gRPC via a proxy. The future is now!
+: gRPC backend over HTTP2/Websockets via a small proxy. The future is now!
 
 * Questions?
 
@@ -119,5 +131,5 @@ gRPC-Web makes the browser a first class citizen of the gRPC ecosystem.
 
 - [[https://improbable.io][Improbable]] for their amazing gRPC-Web library (special shoutout to [[https://twitter.com/mwitkow][@mwitkow]] for his amazing gRPC community contributions)
 - [[https://github.com/neelance][Richard Musiol]], [[https://github.com/shurcooL][Dmitry Shuralyov]] and others in the GopherJS community
-- [[https://twitter.com/_myitcv][Paul Jolly]] for his excellent work on GopherJS and the React bindings
+- [[https://twitter.com/_myitcv][Paul Jolly]] for his excellent work on GopherJS and the React bindings and priceless help with reviewing my slides.
 
