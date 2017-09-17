@@ -12,9 +12,9 @@ https://jbrandhorst.com
 : and I run my own Go blog, writing mostly about things related to my open source projects and gRPC.
 : I'm here today to talk about my open source GopherJS gRPC-Web Bindings.
 
-* Raison d'être
+* Features
 
-Allows you to write browser based Go apps, connecting to gRPC backends.
+Allows the creation of browser based Go apps, connecting to gRPC backends.
 
 Supports unary, server-side, client side and bidirectional streaming endpoints.
 
