@@ -22,6 +22,8 @@ Supports unary, server-side, client side and bidirectional streaming endpoints.
 
 .image better_way.svg
 
+: This diagram shows an overview of the design enabled.
+
 * Building blocks
 
 - GopherJS
