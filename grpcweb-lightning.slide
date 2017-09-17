@@ -96,7 +96,7 @@ Generate with protoc:
 
 gRPC-Web makes the browser a first class citizen of the gRPC ecosystem.
 
-.image grpc_with_web.svg 500 975
+.image diff_side.png _ 975
 
 : We've shown that it's possible today to write a frontend client in Go, communicate with a regular
 : Go backend over HTTP2/Websockets gRPC via a proxy. The future is now!
