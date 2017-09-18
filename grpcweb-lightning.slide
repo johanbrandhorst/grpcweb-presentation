@@ -129,6 +129,7 @@ and my library adds the power of GopherJS for a very compelling frontend develop
 - Improbable TypeScript gRPC-Web Client: [[https://github.com/improbable-eng/grpc-web]]
 - Paul Jolly's GopherJS React Bindings: [[https://github.com/myitcv/react/wiki]]
 - My blog post further detailing the GopherJS gRPC-Web Bindings: [[https://jbrandhorst.com/post/gopherjs-grpcweb/]]
+- My blog post about the websocket proxy : [[https://jbrandhorst.com/post/client-streaming/]]
 - These slides (_so_meta_): [[https://github.com/johanbrandhorst/grpcweb-presentation/tree/master/grpcweb-lightning.slide]]
 
 : These are some of the links you can use to get more information about the project. I'll get a link to the slides
