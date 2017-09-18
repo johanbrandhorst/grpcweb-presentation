@@ -7,10 +7,11 @@ johan.brandhorst@gmail.com
 @johanbrandhorst
 https://jbrandhorst.com
 
-: I'm Johan, InfoSum, we're a Big Data startup in Basingstoke.
-: I've been using Go for 1.5 years, loving it. I've contributed to the Go programming language
-: and I run my own Go blog, writing mostly about things related to my open source projects and gRPC.
-: I'm here today to talk about my open source GopherJS gRPC-Web bindings.
+: I'm Johan, I work at a Big Data startup in Basingstoke called InfoSum.
+: I've been using Go for 1.5 years, loving it. In my spare time I enjoy working on
+: Open Source projects, including some of my own. I've contributed to the Go programming language
+: and I run my own Go blog, writing mostly about things related to my projects and gRPC.
+: I'm here today to talk about my GopherJS gRPC-Web bindings.
 
 * Overview
 
@@ -27,7 +28,7 @@ https://jbrandhorst.com
 .image better_way.svg
 
 : This diagram shows an overview of the network flow of the library, to give you more of
-: an idea of the entire picture. GopherJS apps run in the browser, and with my library, communicating
+: an idea of the whole picture. GopherJS apps run in the browser, and with my library, communicating
 : with the backend becomes as easy as writing a Go gRPC client.
 : Lets take a look at the technologies that my library is built on.
 
@@ -106,12 +107,13 @@ Generate with protoc:
 * Conclusion
 
 gRPC-Web makes the browser a first class citizen of the gRPC ecosystem,
-and my library adds the power of GopherJS for a very compelling developer frontend experience.
+and my library adds the power of GopherJS for a very compelling frontend developer experience.
 
 .image diff_side.png _ 975
 
 : We've shown that it's possible today to write a frontend client in Go, communicate with a regular
-: gRPC backend over HTTP2/Websockets via a small proxy. The future is now!
+: gRPC backend over HTTP2/Websockets via a small proxy, and the gRPC backend can treat the frontend like
+: any other gRPC client.
 
 * Questions?
 
@@ -121,15 +123,26 @@ and my library adds the power of GopherJS for a very compelling developer fronte
 
 * Links
 
-- [[https://github.com/johanbrandhorst/protobuf][GopherJS Protobuf repo]]
-- [[https://github.com/johanbrandhorst/grpcweb-example][Demo website repo]]
-- [[https://github.com/improbable-eng/grpc-web][Improbable TypeScript gRPC-Web Client]]
-- [[https://github.com/myitcv/react/wiki][Paul Jolly's GopherJS React Bindings]]
-- [[https://jbrandhorst.com/post/gopherjs-grpcweb/][My blog post further detailing the GopherJS gRPC-Web Bindings]]
+- GopherJS gRPC-Web Bindings repo: [[https://github.com/johanbrandhorst/protobuf]]
+- Demo website: [[https://grpcweb.jbrandhorst.com]]
+- Demo website repo: [[https://github.com/johanbrandhorst/grpcweb-example]]
+- Improbable TypeScript gRPC-Web Client: [[https://github.com/improbable-eng/grpc-web]]
+- Paul Jolly's GopherJS React Bindings: [[https://github.com/myitcv/react/wiki]]
+- My blog post further detailing the GopherJS gRPC-Web Bindings: [[https://jbrandhorst.com/post/gopherjs-grpcweb/]]
+- These slides (_so_meta_): [[https://github.com/johanbrandhorst/grpcweb-presentation/tree/master/grpcweb-lightning.slide]]
+
+: These are some of the links you can use to get more information about the project. I'll get a link to the slides
+: sent around later.
 
 * Thanks to
 
-- [[https://improbable.io][Improbable]] for their amazing gRPC-Web library (special shoutout to [[https://twitter.com/mwitkow][@mwitkow]] for his amazing gRPC community contributions)
-- [[https://github.com/neelance][Richard Musiol]], [[https://github.com/shurcooL][Dmitry Shuralyov]] and others in the GopherJS community
+- [[https://improbable.io][Improbable]] for their amazing gRPC-Web library (special shoutout to [[https://twitter.com/mwitkow][Michał Witkowski]] for his amazing gRPC community contributions)
+- [[https://github.com/neelance][Richard Musiol]], [[https://github.com/shurcooL][Dmitry Shuralyov]] and others in the GopherJS community.
+- [[https://github.com/tmc][Travis Cline]], the author of the [[https://github.com/tmc/grpc-websocket-proxy][grpc-websocket-proxy]] which inspired me to create a binary websocket proxy.
 - [[https://twitter.com/_myitcv][Paul Jolly]] for his excellent work on GopherJS and the React bindings and priceless help with reviewing my slides.
+- My partner Charlotte for listening to my jibberish technical presentation
 
+: Improbable for their work on the gRPC-Web library, and especially Michał Witkowski for his gRPC community contributions
+: Richard Musiol and Dmitry Shyralyov and others in the GopherJS community.
+: Travis Cline for his work on the grpc-websocket-proxy which inspired me to write a protobuf websocket proxy
+: Paul Jolly for his excellent work on GopherJS and the React bindings and priceless help with reviewing my slides.
