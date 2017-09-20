@@ -115,12 +115,6 @@ and my library adds the power of GopherJS for a very compelling frontend develop
 : gRPC backend over HTTP2/Websockets via a small proxy, and the gRPC backend can treat the frontend like
 : any other gRPC client.
 
-* Questions?
-
-.image gopher.png _ 400
-
-.caption _Gopher_ by [[http://reneefrench.blogspot.co.uk/2014/08/blog-post_4.html][Renée French]]
-
 * Links
 
 - GopherJS gRPC-Web Bindings repo: [[https://github.com/johanbrandhorst/protobuf]]
@@ -148,3 +142,9 @@ and my library adds the power of GopherJS for a very compelling frontend develop
 : Travis Cline for his work on the grpc-websocket-proxy which inspired me to write a protobuf websocket proxy
 : Paul Jolly for his excellent work on GopherJS and the React bindings and priceless help with reviewing my slides.
 : My partner Charlotte for giving me valuable feedback on my verbal communication.
+
+* Questions?
+
+.image gopher.png _ 400
+
+.caption _Gopher_ by [[http://reneefrench.blogspot.co.uk/2014/08/blog-post_4.html][Renée French]]
